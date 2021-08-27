@@ -14,7 +14,6 @@ class EventService(BaseService):
         super().__init__(*args, **kwargs)
         self.event_mgr: EventManager = self.locator.get_manager('EventManager')
 
-
     @transaction
     @check_required(['options', 'data'])
     def parse(self, params):
@@ -29,8 +28,9 @@ class EventService(BaseService):
         Returns:
             plugin_metric_data_response (dict)
         """
-        options = params.get('options')
-        raw_data = params.get('data')
-        parsed_event = self.event_mgr.parse(options, raw_data)
+        options = params.get('options', {})
+        data = params.get('data', {})
+
+        parsed_event = self.event_mgr.parse(options, data)
         _LOGGER.debug(f'[EventService: parse] {parsed_event}')
         return parsed_event
