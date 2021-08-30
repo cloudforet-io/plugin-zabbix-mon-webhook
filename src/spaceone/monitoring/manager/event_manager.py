@@ -1,13 +1,12 @@
 import logging
 import hashlib
-from spaceone.core import utils
 from datetime import datetime
+
 from spaceone.core.manager import BaseManager
 from spaceone.monitoring.model.event_response_model import EventModel
 from spaceone.monitoring.error.event import *
+
 _LOGGER = logging.getLogger(__name__)
-_INTERVAL_IN_SECONDS = 600
-_EXCEPTION_TO_PASS = ["Test notification"]
 
 
 class EventManager(BaseManager):
@@ -18,10 +17,9 @@ class EventManager(BaseManager):
         """ data sample
             "event": {
                 "status": "PROBLEM",
-                "recovery_id": "{EVENT.RECOVERY.ID}",
                 "id": "7458",
                 "severity": "Average",
-                "recovery_name": "{EVENT.RECOVERY.NAME} \u200b \u200b",
+                "date": "",
                 "name": "Load average is too high (per CPU load over 1.5 for 5m)"
             },
             "item": {
@@ -39,12 +37,10 @@ class EventManager(BaseManager):
             "title": "Problem: Load average is too high (per CPU load over 1.5 for 5m)",
             "to": "bluese05@gmail.com",
             "host": {
-                "description": "",
                 "name": "bastion-dev",
                 "visible_name": "bastion-dev",
                 "id": "10445",
                 "connection_info": "172.16.2.66",
-                "dns": ""
             }
         """
 
@@ -65,7 +61,14 @@ class EventManager(BaseManager):
                 'title': data.get('title', ''),
                 'rule': data.get('trigger', {}).get('name', ''),
                 'occurred_at': datetime.now(),
-                'additional_info': {}
+                'additional_info': {
+                    'zabbix_host_visible_name': data.get('host', {}).get('visible_name', ''),
+                    'zabbix_trigger_id': data.get('trigger', {}).get('id', ''),
+                    'zabbix_event_id': data.get('event', {}).get('id', ''),
+                    'zabbix_host_id': data.get('host', {}).get('id', ''),
+                    'zabbix_item_key': data.get('item', {}).get('key', ''),
+                    'zabbix_item_value': data.get('item', {}).get('value', ''),
+                }
             }
 
             event_model = EventModel(event_dict, strict=False)
