@@ -1,13 +1,12 @@
 import logging
 import hashlib
-from spaceone.core import utils
 from datetime import datetime
+
 from spaceone.core.manager import BaseManager
 from spaceone.monitoring.model.event_response_model import EventModel
 from spaceone.monitoring.error.event import *
+
 _LOGGER = logging.getLogger(__name__)
-_INTERVAL_IN_SECONDS = 600
-_EXCEPTION_TO_PASS = ["Test notification"]
 
 
 class EventManager(BaseManager):
