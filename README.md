@@ -44,7 +44,7 @@ webhook for zabbix
 | title | str	| title	| Problem: Load average is too high (per CPU load over 1.5 for 5m)	|
 | description | str | message	| Problem started at 11:58:49 on 2021.08.27\r\nProblem name: Load average is too high ..	|
 | severity | str  | alert level based event_status (RESOLVED, INFORMATION -> INFO, DISASTER -> CRITICAL, HIGH -> ERROR, AVERAGE -> WARNING | ERROR	|
-| resource | dict | resource_id(host.id), resource_type(N/A), name(host.visible_name)	| {"resource_id":"10445", "resource_type":"", "name":"bastion-dev"}	|
+| resource | dict | resource_id(host.name), resource_type(N/A), name(host.visible_name)	| {"resource_id":"10445", "resource_type":"", "name":"bastion-dev"}	|
 | addtional_info | dict | zabbix_host_visible_name, zabbix_trigger_id, zabbix_event_id, zabbix_host_id, zabbix_item_key, zabbix_item_value| {"zabbix_host_visible_name": "bastion-dev", "zabbix_trigger_id":"10445" } |
 | occured_at | datetime | webhook received time | "2021-08-23T06:47:32.753Z" |
 | alert_id | str | mapped alert_id	| alert-3243434343 |
