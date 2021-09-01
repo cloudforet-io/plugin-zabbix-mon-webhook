@@ -48,7 +48,7 @@ webhook for zabbix
 | addtional_info | dict | zabbix_host_visible_name, zabbix_trigger_id, zabbix_event_id, zabbix_host_id, zabbix_item_key, zabbix_item_value| {"zabbix_host_visible_name": "bastion-dev", "zabbix_trigger_id":"10445" } |
 | occured_at | datetime | webhook received time | "2021-08-23T06:47:32.753Z" |
 | alert_id | str | mapped alert_id	| alert-3243434343 |
-| webhook_id | str  | webhook_id	| webhook-34324234234234 |
-| project_id | str	| project_id	| project-12312323232    |
-| domain_id | str	| domain_id	| domain-12121212121	|
+| webhook_id | str  | ID of webhook | webhook-34324234234234 |
+| project_id | str	| ID of project | project-12312323232    |
+| domain_id | str	| domain ID	| domain-12121212121	|
 | created_at | datetime | created time | "2021-08-23T06:47:32.753Z"	|
