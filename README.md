@@ -4,7 +4,7 @@ webhook for zabbix
 # Data Model
 
 ## Zabbix Raw Data
-'''
+```
  "event": {
                 "status": "PROBLEM",
                 "id": "7458",
@@ -32,7 +32,7 @@ webhook for zabbix
                 "id": "10445",
                 "connection_info": "xxx.xx.x.xx",
             }
-'''
+```
 
 ## SpaceONE Event Model
 
