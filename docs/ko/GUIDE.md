@@ -51,7 +51,7 @@ Zabbix의 Media를 설정 하겠습니다. 여기서는 클라우드포레에서
 <img src="GUIDE-img/zabbix-media-setting(h2)-2.png" width="50%" height="50%">
 
 (2-1) 다음으로 Zabbix에서 클라우드포레로 보낼 데이터의 Parameter를 명세 합니다. 아래 그림과 같이 설정 합니다.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;여기서 [Parameters] 중 [Name]이 `webhookURL` 인 것의 [Value]는 [1. Zabbix Webhook 설정(클라우드포레)](./GUIDE.md/#1-zabbix-webhook-설정)에서 획득한 `Webhook URL`을 사용 합니다.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parameter의 [Name]이 `webhookURL`인 것의 [Value]는 [1. Zabbix Webhook 설정(클라우드포레)](./GUIDE.md/#1-zabbix-webhook-설정)에서 획득한 `Webhook URL`을 사용 합니다.
 
 <img src="GUIDE-img/zabbix-media-setting(h2)-3.png" width="50%" height="50%">
 
