@@ -31,7 +31,7 @@ Zabbix는 타 서비스와 연동하기 위해 Media라는 기능을 제공하�
 <img src="GUIDE-img/zabbix-webhook-setting(h2)-2.png" width="50%" height="50%">
 
 (3) 생성된 Zabbix Webhook을 확인할 수 있습니다.  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`webhook URL`은 Grafana와 연동을 위해 사용됩니다.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`webhook URL`은 Zabbix와 연동을 위해 사용됩니다.
 
 <img src="GUIDE-img/zabbix-webhook-setting(h2)-3.png" width="80%" height="80%">
 
