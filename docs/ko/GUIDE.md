@@ -59,47 +59,66 @@ Zabbix의 Media를 설정 하겠습니다. 여기서는 클라우드포레에서
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;클라우드포레는 Zabbix의 기존 Media 유형 중 만족하는 것이 없기 때문에 이를 처리할 스크립트를 만들어야 합니다.
 
 ```javascript
-var params = JSON.parse(value),
-req = new CurlHttpRequest(),
-resp;
-req.AddHeader('Content-Type: application/json');
+try {
+    var params = JSON.parse(value);
+    var req = new HttpRequest();
+    var resp;
 
-var params = JSON.parse(value);
-payload = {};
-payload.title = params.title;
-payload.message = params.message;
-payload.to = params.to;
+    req.addHeader('Content-Type: application/json');
+    req.addHeader('User-Agent: Zabbix/6.0 Webhook');
+    
+    // SpaceONE webhook 페이로드 구성
+    var payload = {};
+    payload.title = params.title;
+    payload.message = params.message;
+    payload.to = params.to;
+    
+    payload.event = {};
+    payload.event.id = params.eventID;
+    payload.event.name = params.eventName;
+    payload.event.date = params.eventDate;
+    payload.event.time = params.eventTime;
+    payload.event.status = params.eventStatus;
+    payload.event.severity = params.eventSeverity;
+    
+    payload.item = {};
+    payload.item.id = params.itemID;
+    payload.item.key = params.itemKey;
+    payload.item.value = params.itemValue;
+    
+    payload.trigger = {};
+    payload.trigger.id = params.triggerID;
+    payload.trigger.name = params.triggerName;
+    payload.trigger.severity = params.triggerSeverity;
+    payload.trigger.status = params.triggerStatus;
+    
+    payload.host = {};
+    payload.host.id = params.hostID;
+    payload.host.connection_info = params.hostConn;
+    payload.host.name = params.hostname;
+    payload.host.visible_name = params.hostVisibleName;
+    
+    // 디버깅용 로그
+    Zabbix.log(4, '[ CloudForet webhook ] Sending to URL: ' + params.webhookURL);
+    Zabbix.log(4, '[ CloudForet webhook ] Payload: ' + JSON.stringify(payload));
 
-payload.event = {};
-payload.event.id = params.eventID;
-payload.event.name = params.eventName;
-payload.event.date = params.eventDate;
-payload.event.time = params.eventTime;
-payload.event.status = params.eventStatus;
-payload.event.severity = params.eventSeverity;
-
-payload.item = {};
-payload.item.id = params.itemID;
-payload.item.key = params.itemKey;
-payload.item.value = params.itemValue;
-
-payload.trigger = {};
-payload.trigger.id = params.triggerID;
-payload.trigger.name = params.triggerName;
-payload.trigger.severity = params.triggerSeverity;
-payload.trigger.status = params.triggerStatus;
-
-payload.host = {};
-payload.host.id = params.hostID;
-payload.host.connection_info = params.hostConn;
-payload.host.name = params.hostname;
-payload.host.visible_name = params.hostVisibleName;
-
-
-resp = req.Post(params.webhookURL,
-JSON.stringify(payload)
-	);
-return resp;
+    resp = req.post(params.webhookURL, JSON.stringify(payload));
+    
+    // 응답 상태 확인
+    if (req.getStatus() != 200 && req.getStatus() != 201) {
+        throw 'Request failed with status code ' + req.getStatus() + ': ' + resp;
+    }
+    
+    // 성공 로그
+    Zabbix.log(4, '[ CloudForet webhook ] Successfully sent. Response: ' + resp);
+    
+    return 'OK';
+    
+} catch (error) {
+    // 에러 로그
+    Zabbix.log(3, '[ CloudForet webhook ] Failed: ' + error);
+    throw 'CloudForet webhook failed: ' + error;
+}
 ```
 
 <img src="GUIDE-img/zabbix-media-setting(h2)-4.png" width="50%" height="50%">
